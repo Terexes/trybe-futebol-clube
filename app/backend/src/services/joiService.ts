@@ -9,6 +9,9 @@ export default class JoiService {
       password: Joi.string().min(6).required(),
     });
     const { error } = schema.validate(credentials);
+    if (error?.message.includes('empty')) {
+      throw new ApiError(400, 'All fields must be filled');
+    }
     if (error?.message.includes('required')) {
       throw new ApiError(400, 'All fields must be filled');
     }
