@@ -1,3 +1,5 @@
+import { JwtPayload } from 'jsonwebtoken';
+
 export interface IUser {
   id: number;
   username: string;
@@ -7,12 +9,6 @@ export interface IUser {
 }
 
 export interface ILoginResponse {
-  user: {
-    id: number;
-    email: string;
-    role: string;
-    username: string;
-  };
   token: string;
 }
 
@@ -23,4 +19,11 @@ export interface IUserCredentials {
 
 export interface IUserService {
   login(credentials: IUserCredentials): Promise<ILoginResponse | null>;
+  validate(token: string): Promise<string>;
+}
+
+export interface ICustomJwtPayload extends JwtPayload {
+  data: {
+    role: string;
+  }
 }
