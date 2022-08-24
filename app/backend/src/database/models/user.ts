@@ -17,7 +17,7 @@ User.init(
       primaryKey: true,
       autoIncrement: true,
     },
-    username: {
+    email: {
       type: STRING,
       allowNull: false,
     },
@@ -25,7 +25,7 @@ User.init(
       type: STRING,
       allowNull: false,
     },
-    email: {
+    username: {
       type: STRING,
       allowNull: false,
     },
@@ -35,10 +35,10 @@ User.init(
     },
   },
   {
+    underscored: true,
     sequelize: db,
     modelName: 'users',
     timestamps: false,
-    underscored: true,
   },
 );
 

@@ -1,6 +1,7 @@
 import * as express from 'express';
 import 'express-async-errors';
 import errorHandler from './middlewares/errorHandler';
+import matches from './routes/matches';
 import teams from './routes/teams';
 import user from './routes/user';
 
@@ -27,6 +28,7 @@ class App {
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use('/login', user);
     this.app.use('/teams', teams);
+    this.app.use('/matches', matches);
     this.app.use(errorHandler);
   }
 
