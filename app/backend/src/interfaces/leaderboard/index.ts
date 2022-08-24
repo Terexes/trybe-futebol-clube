@@ -5,9 +5,16 @@ export interface IMatchesResponse {
   totalGames: number;
 }
 
+export interface IGeneralResponse {
+  totalDraws: number;
+  totalLosses: number;
+  totalVictories: number;
+  totalGames: number;
+}
+
 export interface IGoalsResponse {
   goalsFavor: number;
-  goalsOwn: number
+  goalsOwn: number;
 }
 
 export interface ITeamScore {

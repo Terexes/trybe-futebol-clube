@@ -1,6 +1,7 @@
 import { ITeamService, ITeam } from '../interfaces/teams';
 import { IMatchService } from '../interfaces/match';
 import {
+  IGeneralResponse,
   IGoalsResponse,
   IMatchesResponse,
   ITeamScore,
@@ -58,6 +59,27 @@ export default class LeaderboardService {
     return { totalDraws, totalVictories, totalLosses, totalGames };
   };
 
+  public getGeneralMatches = async (teamId: number): Promise<IGeneralResponse> => {
+    const {
+      totalDraws: homeDraws,
+      totalLosses: homeLosses,
+      totalVictories: homeVictories,
+      totalGames: homeMatches,
+    } = await this.getHomeTeamMatches(teamId);
+    const {
+      totalDraws: awayDraws,
+      totalLosses: awayLosses,
+      totalVictories: awayVictories,
+      totalGames: awayMatches,
+    } = await this.getAwayTeamMatches(teamId);
+    return {
+      totalDraws: homeDraws + awayDraws,
+      totalLosses: homeLosses + awayLosses,
+      totalVictories: homeVictories + awayVictories,
+      totalGames: homeMatches + awayMatches,
+    };
+  };
+
   public getHomeGoals = async (teamId: number): Promise<IGoalsResponse> => {
     const allMatches = await this._MatchService.getAllInProgress('false');
 
@@ -88,6 +110,15 @@ export default class LeaderboardService {
     }, 0);
 
     return { goalsFavor, goalsOwn };
+  };
+
+  public getGeneralGoals = async (teamId: number): Promise <IGoalsResponse> => {
+    const { goalsFavor: goalsFavorHome, goalsOwn: goalsOwnHome } = await this.getHomeGoals(teamId);
+    const { goalsFavor: goalsFavorAway, goalsOwn: goalsOwnAway } = await this.getAwayGoals(teamId);
+    return {
+      goalsFavor: goalsFavorHome + goalsFavorAway,
+      goalsOwn: goalsOwnHome + goalsOwnAway,
+    };
   };
 
   public generateHomeScore = async (team: ITeam): Promise<ITeamScore> => {
@@ -130,7 +161,27 @@ export default class LeaderboardService {
     return score;
   };
 
-  public getLeaderboard = async (filter: 'home' | 'away') => {
+  public generateGeneralScore = async (team:ITeam): Promise<ITeamScore> => {
+    const matches = await this.getGeneralMatches(team.id);
+    const { totalDraws, totalVictories, totalLosses, totalGames } = matches;
+    const { goalsFavor, goalsOwn } = await this.getGeneralGoals(team.id);
+    const totalPoints = totalVictories * 3 + totalDraws * 1;
+    const score: ITeamScore = {
+      name: team.teamName,
+      totalPoints,
+      totalGames,
+      totalVictories,
+      totalDraws,
+      totalLosses,
+      goalsFavor,
+      goalsOwn,
+      goalsBalance: goalsFavor - goalsOwn,
+      efficiency: ((totalPoints / (totalGames * 3)) * 100).toFixed(2),
+    };
+    return score;
+  };
+
+  public getLeaderboard = async (filter: 'home' | 'away' | 'general') => {
     const allTeams = await this._TeamService.getAll();
     const allScores: Promise<ITeamScore>[] = [];
     for (let i = 0; i < allTeams.length; i += 1) {
@@ -140,6 +191,10 @@ export default class LeaderboardService {
       }
       if (filter === 'away') {
         const score: Promise<ITeamScore> = this.generateAwayScore(allTeams[i]);
+        allScores.push(score);
+      }
+      if (filter === 'general') {
+        const score: Promise<ITeamScore> = this.generateGeneralScore(allTeams[i]);
         allScores.push(score);
       }
     }
