@@ -8,7 +8,7 @@ import { allTeams, succesfullTeamById } from './mocks/teams';
 
 chai.use(chaiHttp);
 
-describe('/teams succesfull request', () => {
+describe('/teams succesfull requests', () => {
   beforeEach(() => {
     sinon.stub(Team, 'findAll').resolves(allTeams as Team[]);
     sinon.stub(Team, 'findByPk').resolves(succesfullTeamById as Team);
