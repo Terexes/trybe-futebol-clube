@@ -1,5 +1,4 @@
 import Match from '../../../database/models/match';
-import { IMatch } from '../../../interfaces/match';
 
 export const allMatches = [
   {
