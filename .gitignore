@@ -6,4 +6,6 @@
 coverage
 front.eval
 back.eval
+publisher.sh
+trybe-filter-repo.sh
 .vscode*

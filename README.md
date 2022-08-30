@@ -1,16 +1,53 @@
-# 🚧 README em construção 🚧
+# Trybe Futebol Clube
 
-<!-- Olá, Tryber!
+## Sobre
 
-Esse é apenas um arquivo inicial para o README do seu projeto.
+Projeto proposto no bloco 28 no qual nos foi fornecido um front-end pronto e o objetivo do projeto era desenvolver uma APi para ser integrada ao front.<br />
+O objetivo do projeto foi de fixar conceitos de Node.js, Express.js, TypeScript, POO (Programação Orientada a Objetos) e conceitos de SOLID.
+<br />
 
-É essencial que você preencha esse documento por conta própria, ok?
+## Ferramentas Utilizadas
 
-Não deixe de usar nossas dicas de escrita de README de projetos, e deixe sua criatividade brilhar!
+* Node.js
+* Express.js
+* TypeScript
+* Sequelize
+* MySQL
+* Mocha.js
+* Chai.js
+* Sinon.js
+* Docker
+<br />
 
-⚠️ IMPORTANTE: você precisa deixar nítido:
-- quais arquivos/pastas foram desenvolvidos por você; 
-- quais arquivos/pastas foram desenvolvidos por outra pessoa estudante;
-- quais arquivos/pastas foram desenvolvidos pela Trybe.
+##Instalação e execução
 
--->
+Para rodar o projeto é necessário ter **Git**, **Docker**, **Node** e **Docker Compose** instalados no seu computador. O Docker Compose necessita estar na versão **1.29** e o Node na versão **16**.
+
+### 1 - Clone o repositório e entre na pasta do projeto
+```sh
+git clone git@github.com:Terexes/trybe-futebol-clube.git && cd trybe-futebol-clube
+```
+
+### 2 - Execute os containers
+
+```sh
+npm run compose:up
+```
+
+### 3 - Acesse a aplicação front-end através da porta 3000
+
+http://localhost:3000
+
+### 4 - Utilize uma das credenciais abaixo para logar na aplicação e testar
+
+#### Administrador
+
+* email: admin@admin.com
+* password: secret_admin
+
+#### Usuário comum
+
+* email: user@user.com
+* password: secret_user
+
+<br />
