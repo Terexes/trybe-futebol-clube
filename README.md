@@ -19,7 +19,7 @@ O objetivo do projeto foi de fixar conceitos de Node.js, Express.js, TypeScript,
 * Docker
 <br />
 
-##Instalação e execução
+## Instalação e execução
 
 Para rodar o projeto é necessário ter **Git**, **Docker**, **Node** e **Docker Compose** instalados no seu computador. O Docker Compose necessita estar na versão **1.29** e o Node na versão **16**.
 
